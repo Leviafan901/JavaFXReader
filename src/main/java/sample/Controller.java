@@ -37,6 +37,36 @@ public class Controller {
     @FXML
     private Button generateDocButton;
 
+    @FXML
+    private TextField birthDate;
+
+    @FXML
+    private TextField registrationAdress;
+
+    @FXML
+    private Label personalIDLabel;
+
+    @FXML
+    private TextField personalID;
+
+    @FXML
+    private TextField detective;
+
+    @FXML
+    private TextField phoneNumber;
+
+    @FXML
+    private Label firstLastNameLabel;
+
+    @FXML
+    private ComboBox<?> requestTypeDropdown;
+
+    @FXML
+    private ComboBox<?> requestBaseDropdown;
+
+    @FXML
+    private Button generateDocButton;
+
     private Map<String, String> values = new HashMap<>();
 
     public void initialize() {
