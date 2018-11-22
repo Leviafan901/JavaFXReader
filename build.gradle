@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'sample.Main'
+    }
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'sample.Main'
+    }
+    baseName = 'readre'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
+version 'v.1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+}
