@@ -64,8 +64,7 @@ public class Controller {
         generateDocButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ClassLoader classLoader = getClass().getClassLoader();
-                String initPath = classLoader.getResource("docs/PublicHealth.docx").getPath();
+                String initPath = "docs/PublicHealth.docx";
                 try (FileInputStream file = new FileInputStream(new File(initPath));
                      XWPFDocument docx = new XWPFDocument(OPCPackage.open(file))) {
                     replaceParagraph(docx, "name", firstName.getText());

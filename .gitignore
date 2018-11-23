@@ -20,6 +20,8 @@ $RECYCLE.BIN/
 #Gradle
 .gradle
 .gradle/*
+build/*
+build
 
 #Java
 *.class

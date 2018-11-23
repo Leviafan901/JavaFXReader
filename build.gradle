@@ -2,25 +2,18 @@ plugins {
     id 'java'
 }
 
-jar {
+jar.doFirst {
     manifest {
-        attributes 'Main-Class': 'sample.Main'
+        attributes(
+                'Main-Class': 'sample.Main',
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
     }
 }
 
-task customFatJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'sample.Main'
-    }
-    baseName = 'readre'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+version '0.1'
 
-
-version 'v.1.0'
-
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -30,4 +23,19 @@ repositories {
 dependencies {
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes(
+                'Main-Class': 'sample.Main',
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+    from('src/main/resources') {
+        include 'resources'
+    }
+    baseName = 'reader'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
