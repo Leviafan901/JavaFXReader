@@ -68,7 +68,7 @@ public class Controller {
                 String initPath = classLoader.getResource("docs/PublicHealth.docx").getPath();
                 try (FileInputStream file = new FileInputStream(new File(initPath));
                      XWPFDocument docx = new XWPFDocument(OPCPackage.open(file))) {
-                    replaceParagraph(docx, "reason", firstName.getText());
+                    replaceParagraph(docx, "name", firstName.getText());
 
 
                     FileChooser fileChooser = new FileChooser();
@@ -85,8 +85,6 @@ public class Controller {
                         final FileOutputStream outF = new FileOutputStream(newFile);
                         docx.write(outF);
                     }
-                    //final FileOutputStream out = new FileOutputStream(String.format("D:/%s.docx", firstName.getText()));
-                    //docx.write(out);
                 } catch (IOException | InvalidFormatException e) {
                     e.printStackTrace();
                 }
