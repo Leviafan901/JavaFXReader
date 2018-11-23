@@ -4,18 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import javax.security.auth.login.AppConfigurationEntry;
-import javax.security.auth.login.Configuration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,6 +29,33 @@ public class Controller {
     private TextField firstName;
 
     @FXML
+    private TextField birthDate;
+
+    @FXML
+    private TextField registrationAddress;
+
+    @FXML
+    private Label personalIDLabel = new Label("Личный номер \n (для имущественных запросов)");
+
+    @FXML
+    private TextField personalID;
+
+    @FXML
+    private TextField detective;
+
+    @FXML
+    private TextField phoneNumber;
+
+    @FXML
+    private Label firstLastNameLabel;
+
+    @FXML
+    private ComboBox<?> requestTypeDropdown;
+
+    @FXML
+    private ComboBox<?> requestBaseDropdown;
+
+    @FXML
     private Button generateDocButton;
 
     private Map<String, String> values = new HashMap<>();
@@ -39,7 +65,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
                 ClassLoader classLoader = getClass().getClassLoader();
-                String initPath = classLoader.getResource("docs/Test.docx").getPath();
+                String initPath = classLoader.getResource("docs/PublicHealth.docx").getPath();
                 try (FileInputStream file = new FileInputStream(new File(initPath));
                      XWPFDocument docx = new XWPFDocument(OPCPackage.open(file))) {
                     replaceParagraph(docx, "reason", firstName.getText());
