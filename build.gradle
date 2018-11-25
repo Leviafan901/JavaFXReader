@@ -2,18 +2,11 @@ plugins {
     id 'java'
 }
 
-jar.doFirst {
-    manifest {
-        attributes(
-                'Main-Class': 'sample.Main',
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
-        )
-    }
-}
-
 version '0.1'
 
 sourceCompatibility = 1.7
+
+compileJava.options.encoding = "UTF-8"
 
 repositories {
     mavenCentral()
@@ -29,11 +22,8 @@ task customFatJar(type: Jar) {
     manifest {
         attributes(
                 'Main-Class': 'sample.Main',
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                //"Class-Path": configurations.compile.collect { it.getName() }.join(' ')
         )
-    }
-    from('src/main/resources') {
-        include 'resources'
     }
     baseName = 'reader'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextField?>
@@ -14,27 +14,33 @@
         <MenuBar VBox.vgrow="NEVER" />
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="464.0" prefWidth="702.0" VBox.vgrow="ALWAYS">
             <children>
-                <TextField fx:id="firstName" layoutX="124.0" layoutY="81.0" prefHeight="25.0" prefWidth="251.0" />
+                <TextField fx:id="name" layoutX="124.0" layoutY="81.0" prefHeight="25.0" prefWidth="251.0" />
                 <Button fx:id="generateDocButton" layoutX="409.0" layoutY="468.0" mnemonicParsing="false" text="Сгенерировать документ" />
                 <Label layoutX="27.0" layoutY="85.0" prefHeight="17.0" prefWidth="82.0" style="-fx-background-color: #fff;" text="Введите Ф.И.О" />
                 <Label layoutX="24.0" layoutY="129.0" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #fff;" text="Дата рождения" />
                 <TextField fx:id="birthDate" layoutX="124.0" layoutY="125.0" />
-                <Label layoutX="12.0" layoutY="175.0" prefHeight="25.0" prefWidth="112.0" text="Адрес регистрации" />
-                <TextField fx:id="registrationAddress" layoutX="124.0" layoutY="175.0" prefHeight="54.0" prefWidth="251.0" />
-                <Label fx:id="personalIDLabel" alignment="TOP_LEFT" layoutX="12.0" layoutY="246.0" lineSpacing="1.0" prefHeight="45.0" prefWidth="112.0" text="Личный номер (для имущественных запросов)">
+                <Label layoutX="12.0" layoutY="229.0" prefHeight="25.0" prefWidth="112.0" text="Адрес регистрации" />
+                <TextField fx:id="registrationAddress" layoutX="124.0" layoutY="227.0" prefHeight="54.0" prefWidth="251.0" />
+                <Label fx:id="personalIDLabel" alignment="TOP_LEFT" layoutX="12.0" layoutY="285.0" lineSpacing="1.0" prefHeight="45.0" prefWidth="112.0" text="Личный номер (для имущественных запросов)">
                     <cursor>
                         <Cursor fx:constant="TEXT" />
                     </cursor>
                 </Label>
-                <TextField fx:id="personalID" layoutX="124.0" layoutY="246.0" prefHeight="25.0" prefWidth="251.0" />
+                <TextField fx:id="personalID" layoutX="124.0" layoutY="286.0" prefHeight="25.0" prefWidth="251.0" />
                 <TextField fx:id="detective" layoutX="329.0" layoutY="340.0" prefHeight="25.0" prefWidth="192.0" />
                 <TextField fx:id="phoneNumber" layoutX="249.0" layoutY="391.0" />
                 <Label fx:id="firstLastNameLabel" layoutX="129.0" layoutY="345.0" prefHeight="17.0" prefWidth="192.0" text="Инициалы и фамилия следователя" />
                 <Label layoutX="129.0" layoutY="396.0" text="Контактный телефон" />
-                <Label layoutX="24.0" layoutY="16.0" prefHeight="17.0" prefWidth="82.0" text="Тип запроса" />
-                <Label layoutX="340.0" layoutY="14.0" prefHeight="17.0" prefWidth="102.0" text="Основане запроса" />
-                <ComboBox fx:id="requestTypeDropdown" layoutX="106.0" layoutY="14.0" prefWidth="150.0" />
-                <ComboBox fx:id="requestBaseDropdown" layoutX="459.0" layoutY="12.0" prefWidth="150.0" />
+                <Label layoutX="27.0" layoutY="21.0" prefHeight="17.0" prefWidth="82.0" text="Тип запроса" />
+                <Label layoutX="343.0" layoutY="21.0" prefHeight="17.0" prefWidth="102.0" text="Основане запроса" />
+            <ChoiceBox fx:id="requestTypeChoiceBox" layoutX="122.0" layoutY="19.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="requestBaseChoiceBox" layoutX="460.0" layoutY="18.0" prefWidth="150.0" />
+            <Label layoutX="436.0" layoutY="85.0" text="Номер КР или УД" />
+            <TextField fx:id="orderNumber" layoutX="559.0" layoutY="81.0" />
+            <TextField fx:id="stateNumber" layoutX="559.0" layoutY="125.0" prefHeight="28.0" prefWidth="70.0" />
+            <Label layoutX="477.0" layoutY="131.0" prefHeight="17.0" prefWidth="56.0" text="Статья УК" />
+            <Label layoutX="21.0" layoutY="169.0" text="Уроженец(ка) в родительном падеже" />
+            <TextField fx:id="birthPlace" layoutX="124.0" layoutY="186.0" prefHeight="28.0" prefWidth="177.0" />
             </children>
         </AnchorPane>
     </children>
