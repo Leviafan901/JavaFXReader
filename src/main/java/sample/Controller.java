@@ -166,7 +166,7 @@ public class Controller {
                 break;
             default:
                 values.put("criminal", "");
-                values.put("reason", "рассмотрением материалов проверки КР");
+                values.put("reason", "рассмотрением материалов проверки КР №");
         }
     }
 }
