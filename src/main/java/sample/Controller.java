@@ -2,8 +2,6 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -11,6 +9,7 @@ import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFFooter;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
@@ -71,12 +70,9 @@ public class Controller {
         initChoiceBox(requestTypeChoiceBox, "Запросы в диспансеры", "Имущественные запросы");
         initChoiceBox(requestBaseChoiceBox, "Материал проверки КР", "Уголовное дело");
 
-        generateDocButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                defineRequestBase(requestBaseChoiceBox);
-                generateFile(requestType(requestTypeChoiceBox), initValuesMap());
-            }
+        generateDocButton.setOnAction(event -> {
+            defineRequestBase(requestBaseChoiceBox);
+            generateFile(requestType(requestTypeChoiceBox), initValuesMap());
         });
     }
 
@@ -84,6 +80,7 @@ public class Controller {
         try (FileInputStream file = new FileInputStream(new File(filePath));
              XWPFDocument docx = new XWPFDocument(OPCPackage.open(file))) {
             replaceParagraph(docx, keyWords);
+            replaceTextInFooter(docx, keyWords);
 
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Word files (*.docx)", "*.docx");
@@ -110,6 +107,25 @@ public class Controller {
                             text = text
                                     .replaceAll(key, keyWords.get(key));
                             r.setText(text, 0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void replaceTextInFooter(XWPFDocument doc, Map<String, String> keyWords) {
+        for (XWPFFooter footer : doc.getFooterList()) {
+            for (XWPFParagraph paragraph : footer.getParagraphs()) {
+                for (XWPFRun run : paragraph.getRuns()) {
+                    if (run != null) {
+                        for (String key : keyWords.keySet()) {
+                            String text = run.getText(0);
+                            if (text != null && text.contains(key)) {
+                                text = text
+                                        .replaceAll(key, keyWords.get(key));
+                                run.setText(text, 0);
+                            }
                         }
                     }
                 }
