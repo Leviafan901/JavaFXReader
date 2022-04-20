@@ -6,14 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.net.URL;
-
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("newlayout.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/newlayout.fxml"));
         primaryStage.setTitle("Document reader");
         primaryStage.setScene(new Scene(root, 700, 600));
         primaryStage.show();

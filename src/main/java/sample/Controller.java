@@ -3,7 +3,10 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -13,10 +16,7 @@ import org.apache.poi.xwpf.usermodel.XWPFFooter;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Controller {
@@ -63,7 +63,7 @@ public class Controller {
     @FXML
     private Button generateDocButton;
 
-    private Map<String, String> values = new HashMap<>();
+    private final Map<String, String> values = new HashMap<>();
 
     public void initialize() {
 
@@ -77,11 +77,10 @@ public class Controller {
     }
 
     private void generateFile(String filePath, Map<String, String> keyWords) {
-        try (FileInputStream file = new FileInputStream(new File(filePath));
+        try (FileInputStream file = new FileInputStream(filePath);
              XWPFDocument docx = new XWPFDocument(OPCPackage.open(file))) {
             replaceParagraph(docx, keyWords);
             replaceTextInFooter(docx, keyWords);
-
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Word files (*.docx)", "*.docx");
             fileChooser.getExtensionFilters().add(extFilter);
@@ -160,29 +159,26 @@ public class Controller {
     }
 
     private String requestType(ChoiceBox<String> typesChoiceBox) {
-        switch (typesChoiceBox.getValue()) {
-            case "Запросы в диспансеры":
-                return "docs/PublicHealth.docx";
-            case "Имущественные запросы":
-                return "docs/PropertyRequests.docx";
-            default:
-                return "docs/PublicHealth.docx";
-        }
+        return switch (typesChoiceBox.getValue()) {
+            case "Имущественные запросы" -> "docs/PropertyRequests.docx";
+            default -> "docs/PublicHealth.docx";
+        };
     }
 
     private void defineRequestBase(ChoiceBox<String> typesChoiceBox) {
         switch (typesChoiceBox.getValue()) {
-            case "Материал проверки КР":
+            case "Материал проверки КР" -> {
                 values.put("criminal", "");
                 values.put("requestBase", "рассмотрением материалов проверки КР №");
-                break;
-            case "Уголовное дело":
+            }
+            case "Уголовное дело" -> {
                 values.put("criminal", "возбужденного по ");
                 values.put("requestBase", "расследованием уголовного дела №");
-                break;
-            default:
+            }
+            default -> {
                 values.put("criminal", "");
                 values.put("reason", "рассмотрением материалов проверки КР №");
+            }
         }
     }
 }
